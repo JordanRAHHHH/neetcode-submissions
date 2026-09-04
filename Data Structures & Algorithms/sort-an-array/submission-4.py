@@ -1,0 +1,39 @@
+class Solution:
+    def merge(self,nums1: List[int], nums2: List[int]) -> List[int]:
+        i = 0
+        k = 0
+        newNums = []
+
+        while i < len(nums1) and k < len(nums2):
+            if nums1[i] <= nums2[k]:
+                newNums.append(nums1[i])
+                i+=1
+            elif nums1[i] > nums2[k]:
+                newNums.append(nums2[k])
+                k+=1
+            
+        while i != len(nums1):
+            newNums.append(nums1[i])
+            i+=1
+        while k != len(nums2):
+            newNums.append(nums2[k])
+            k+=1
+
+        return newNums
+
+    def mergesort(self, nums: List[int]) -> List[int]:
+        if len(nums) <=1 :
+            return nums
+        
+        mid = len(nums) // 2
+
+        left = nums[:mid]
+        right = nums[mid:]
+
+        left = self.mergesort(left)
+        right = self.mergesort(right)
+
+        return self.merge(left, right)
+
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return self.mergesort(nums)
